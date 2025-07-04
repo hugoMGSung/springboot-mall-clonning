@@ -3,6 +3,8 @@ package com.hugo83.webmall;
 import com.hugo83.webmall.repository.ItemRepository;
 import com.hugo83.webmall.entity.Item;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -80,6 +82,17 @@ class WebmallApplicationTests {
 		for (Item item : itemList) {
 			System.out.println(item.toString());
 		}
+	}
+
+	@Test
+	@DisplayName("@Query를 이용한 상품조회 테스트")
+	void selectItemDetailJpa() {
+		List<Item> itemList = this.itemRepository.findByItemDetail("테스트 상품 상세설명");
+
+		for (Item item : itemList) {
+			System.out.println(item.toString());
+		}
+		assertEquals(103, itemList.size());
 	}
 
 	@Test
