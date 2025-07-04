@@ -4,6 +4,7 @@ import com.hugo83.webmall.repository.ItemRepository;
 import com.hugo83.webmall.entity.Item;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,27 @@ class WebmallApplicationTests {
 	}
 
 	@Test
+	void createItemList() {
+		for (int i = 1; i <= 10; i++) {
+			Item item = new Item();
+			item.setItemName("테스트 상품" + (i+1));
+			item.setPrice(10000);
+			item.setItemDetail("테스트 상품 상세설명" + (i+1));
+			item.setItemSellStatus(ItemSellStatus.SELL);
+			item.setStockQuantity(100);
+			item.setCreatedAt(LocalDateTime.now());
+			
+			this.itemRepository.save(item);
+		}
+	}
+
+	@Test
 	void selectListItemJpa() {
-		List<Item> itemList = this.itemRepository
+		List<Item> itemList = this.itemRepository.findByItemName("테스트 상품1");
+		
+		for (Item item : itemList) {
+			System.out.println(item.toString());
+		}
 	}
 
 	@Test

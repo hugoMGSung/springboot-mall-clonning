@@ -13,6 +13,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     // 상품 이름으로 검색
     List<Item> findByItemNameContaining(String itemName);
 
+     // 상품 이름으로 검색
+    List<Item> findByItemName(String itemName);
+
     // 판매 상태로 검색
     List<Item> findByItemSellStatus(ItemSellStatus itemSellStatus);
 
