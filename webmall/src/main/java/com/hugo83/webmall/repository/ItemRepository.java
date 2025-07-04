@@ -10,6 +10,19 @@ import com.hugo83.webmall.entity.ItemSellStatus;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
+    /*
+     * - find + (Entity) + By + (Property)
+     * - And
+     * - Or
+     * - Is, Equals
+     * - Between
+     * - LessThan, LessThanEqual, GreaterThan, GreaterThanEqual
+     * - After, Before
+     * - IsNull, Null, IsNotNull
+     * - Like, NotLike
+     * - StartingWith, EndingWith
+     * - OrderBy, Not, In, NotIn, True, False, IgnoreCase ...
+     */
     // 상품 이름으로 검색
     List<Item> findByItemNameContaining(String itemName);
 

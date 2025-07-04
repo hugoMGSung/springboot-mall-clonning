@@ -6,6 +6,7 @@ import com.hugo83.webmall.entity.Item;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,6 +67,16 @@ class WebmallApplicationTests {
 	void selectListItemJpa() {
 		List<Item> itemList = this.itemRepository.findByItemName("테스트 상품1");
 		
+		for (Item item : itemList) {
+			System.out.println(item.toString());
+		}
+	}
+
+	@Test
+	@DisplayName("상품명, 상품상세설명 테스트")
+	void selectItemNameOrDetailJpa() {
+		List<Item> itemList = this.itemRepository.findByItemNameOrItemDetail("테스트 상품2", "테스트 상품 상세설명2");
+
 		for (Item item : itemList) {
 			System.out.println(item.toString());
 		}
