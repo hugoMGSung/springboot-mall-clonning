@@ -37,22 +37,7 @@ class WebmallApplicationTests {
 
 	@Test
 	void insertDummyItemsJpa() {
-		for (int i = 0; i < 100; i++) {
-			Item item = new Item();
-			item.setItemName("테스트 상품" + (i+1));
-			item.setPrice(10000);
-			item.setItemDetail("테스트 상품 상세설명" + (i+1));
-			item.setItemSellStatus(ItemSellStatus.SELL);
-			item.setStockQuantity(100);
-			item.setCreatedAt(LocalDateTime.now());
-			
-			this.itemRepository.save(item);
-		}
-	}
-
-	@Test
-	void createItemList() {
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			Item item = new Item();
 			item.setItemName("테스트 상품" + (i+1));
 			item.setPrice(10000);
@@ -92,11 +77,10 @@ class WebmallApplicationTests {
 		for (Item item : itemList) {
 			System.out.println(item.toString());
 		}
-		assertEquals(103, itemList.size());
+		assertEquals(11, itemList.size());
 	}
 
 	@Test
 	void contextLoads() {
 	}
-
 }

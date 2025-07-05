@@ -17,5 +17,4 @@ public class WebmallApplication {
 	public String Home() {
 		return "Hello, Spring Boot!";
 	}
-
 }

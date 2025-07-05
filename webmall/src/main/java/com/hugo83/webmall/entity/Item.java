@@ -15,12 +15,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "item") // 테이블 이름 지정
 @Getter
 @Setter
+@NoArgsConstructor
+@ToString
 public class Item {
 
     @Id // Primary Key 지정
