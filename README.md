@@ -62,3 +62,26 @@ Spring Boot 쇼핑몰 클로닝 Step by Step
         options.annotationProcessorGeneratedSourcesDirectory = file(generated)
     }    
     ```
+
+
+## Spring Boot Custom 에러페이지
+
+```text
+src/
+└── main/
+    └── resources/
+        └── templates/
+            └── error/
+                ├── 404.html
+                ├── 500.html
+                └── error.html  ← 모든 예외의 기본값
+
+```
+
+- application.properties 설정
+
+    ```properties
+    server.error.whitelabel.enabled=false  # 기본 Whitelabel Error Page 비활성화
+    server.error.include-message=always    # 오류 메시지 포함 (Thymeleaf에서 ${message} 사용 가능)
+    server.error.include-binding-errors=always
+    ```
