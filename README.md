@@ -6,6 +6,7 @@ Spring Boot 쇼핑몰 클로닝 Step by Step
 - 기본 설정 및 테스트
 
 ## Spring Boot + Spring Data JPA + QueryDSL
+- Version에 맞춰서 설정하기 아주 힘듦
 - Q클래스 생성 조건
     1. `@Entity`가 붙은 클래스 : Item 클래스에 @Entity가 있어야 함
     2. `annotationProcessor` 설정 : querydsl-apt + jpa classifier 필요

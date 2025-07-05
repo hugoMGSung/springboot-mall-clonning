@@ -77,6 +77,21 @@ class WebmallApplicationTests {
 		for (Item item : itemList) {
 			System.out.println(item.toString());
 		}
+
+		System.out.println(String.format("▶▶▶▶▶ List<Item> size = %d", itemList.size()));
+		assertEquals(11, itemList.size());
+	}
+
+	@Test
+	@DisplayName("nativeQuery를 이용한 상품조회 테스트")
+	void selectItemDetailByNativeJpa() {
+		List<Item> itemList = this.itemRepository.findByItemDetailNative("테스트 상품 상세설명");
+
+		for (Item item : itemList) {
+			System.out.println(item.toString());
+		}
+
+		System.out.println(String.format("▶▶▶▶▶ List<Item> size = %d", itemList.size()));
 		assertEquals(11, itemList.size());
 	}
 

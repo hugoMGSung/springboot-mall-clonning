@@ -45,10 +45,11 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByItemNameOrItemDetail(String itemName, String itemDetail);
 
-    // JPA @query`
+    // JPA @query
     @Query("select i from Item i where i.itemDetail like %:itemDetail% order by i.price desc")
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
 
-    // @Query(value="select * from item i where i.item_detail like %:itemDetail% order by i.price desc", nativeQuery = true)
-    // List<Item> findByItemDetailNative(@Param("itemDetail") String itemDetail);
+    // OK CONCAT 함수 사용해야 함
+    @Query(value="select * from item i where i.item_detail like CONCAT('%', :itemDetail, '%') order by i.price desc", nativeQuery = true)
+    List<Item> findByItemDetailNative(@Param("itemDetail") String itemDetail);
 }
