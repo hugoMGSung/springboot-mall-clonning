@@ -1,6 +1,6 @@
 package com.hugo83.webmall.entity;
 
-import com.hugo83.webmall.config.MemberRole;
+import com.hugo83.webmall.config.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,5 +36,5 @@ public class Member {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    private MemberRole role;
+    private Role role;
 }

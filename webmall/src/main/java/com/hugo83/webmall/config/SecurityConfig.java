@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 // 스프링시큐리티 핵심파일!!
 @Configuration      // 스프링 환경설정 파일 
@@ -18,21 +17,14 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // 인증되지 않은 모든 페이지 요청을 허락(로그인창 안뜸)
-            .authorizeHttpRequests((ahr) -> ahr.requestMatchers("/**")    
-                                               .permitAll()
-                                               .anyRequest()
-                                               .authenticated())
-            // h2-console URL은 CSRF에 예외라고 설정
-            .csrf((csrf) -> csrf.ignoringRequestMatchers("/h2-console/**"))  
-            // h2-console이 Frame방식(구시대방식)으로 개발되어서 필요한 설정
-            .headers((hdr) -> hdr.addHeaderWriter(new XFrameOptionsHeaderWriter(
-                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN    
-            )))
+            .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
+                                               .anyRequest().authenticated())
+            .csrf(csrf -> csrf.disable())  
             // 로그인URL 접근 지정. 로그인페이지 URL과 로그인성공후 페이지 URL 지정
-            .formLogin((fl) -> fl.loginPage("/member/signin")
+            .formLogin(fmli -> fmli.loginPage("/members/login")
                                  .defaultSuccessUrl("/"))
             // 로그아웃URL 지정.
-            .logout((lo) -> lo.logoutUrl("/member/signout")
+            .logout(lgot -> lgot.logoutUrl("/members/logout")
                               .logoutSuccessUrl("/")
                               .invalidateHttpSession(true))
         ;  // ;을 분리해놓으면 chain method 추가시 간편함

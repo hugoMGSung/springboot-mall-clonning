@@ -11,5 +11,4 @@ import com.hugo83.webmall.entity.Member;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
-
 }

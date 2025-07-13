@@ -12,7 +12,6 @@
     <link   th:href="@{/css/main.css}" rel="stylesheet">
     <!-- thymeleaf fragment -->
     <th:block layout:fragment="css"></th:block>
-    <th:block layout:fragment="script"></th:block>
 </head>
 <body>
     <div th:replace="~{layouts/header_1::header}" class="mb-3"></div>
@@ -24,6 +23,7 @@
 
     <div th:replace="~{layouts/footer_1::footer}"></div>
 
+    <th:block layout:fragment="script"></th:block>
     <!-- Bootstrap JS etc. -->
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
