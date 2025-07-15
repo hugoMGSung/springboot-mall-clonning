@@ -3,13 +3,14 @@ package com.hugo83.webmall.controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hugo83.webmall.config.Role;
 import com.hugo83.webmall.dto.MemberFormDto;
 import com.hugo83.webmall.entity.Member;
 import com.hugo83.webmall.service.MemberService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,17 +35,30 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String postMemberForm(MemberFormDto memberFormDto) {
-        Member member = Member.builder().name(memberFormDto.getName())
-                              .email(memberFormDto.getEmail())
-                              .address(memberFormDto.getAddress())
-                              .role(Role.USER)
-                              .build();
+    public String postMemberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "member/memberForm";
+        }
 
-        memberService.saveMember(member);
+        try {
+            Member member = Member.createMember(memberFormDto, passwordEncoder);
+            memberService.saveMember(member);
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/memberForm";
+        }
 
         return "redirect:/";
     }
     
-    
+    @GetMapping("/login") 
+    public String loginMember() {
+        return "/member/memberLoginForm";
+    }
+
+    @GetMapping("/login/error") 
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디/비밀번호를 확인해주세요");
+        return "/member/memberLoginForm";
+    }
 }

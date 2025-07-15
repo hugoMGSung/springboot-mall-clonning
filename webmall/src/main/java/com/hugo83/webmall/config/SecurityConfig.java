@@ -2,6 +2,8 @@ package com.hugo83.webmall.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +24,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())  
             // 로그인URL 접근 지정. 로그인페이지 URL과 로그인성공후 페이지 URL 지정
             .formLogin(fmli -> fmli.loginPage("/members/login")
-                                 .defaultSuccessUrl("/"))
+                                 .defaultSuccessUrl("/")
+                                 .usernameParameter("email"))
             // 로그아웃URL 지정.
             .logout(lgot -> lgot.logoutUrl("/members/logout")
                               .logoutSuccessUrl("/")
@@ -36,5 +39,11 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();  // 회원가입 패스워드 암호화시 사용한 엔코더와 동일
+    }
+
+    // 스프링시큐리티로 MemberSecurityService와 패스워드 등을 내부적으로 사용, 인증 + 권한 부여 프로세스 처리
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
