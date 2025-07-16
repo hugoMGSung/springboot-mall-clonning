@@ -85,3 +85,23 @@ src/
     server.error.include-message=always    # 오류 메시지 포함 (Thymeleaf에서 ${message} 사용 가능)
     server.error.include-binding-errors=always
     ```
+
+## 지연로딩
+| 구분       | 즉시 로딩 (EAGER)                    | 지연 로딩 (LAZY)                        |
+| -------- | -------------------------------- | ----------------------------------- |
+| 📦 로딩 시점 | 엔티티를 조회할 때 **즉시** 연관 엔티티까지 함께 로딩 | 연관 엔티티는 **실제로 사용할 때까지 로딩 지연**       |
+| 🔄 동작 방식 | `JOIN` 또는 추가 쿼리로 함께 조회됨          | 프록시 객체로 대체되며, 접근 시 SQL 실행           |
+| ⚡ 성능     | 불필요한 로딩으로 **성능 저하 가능**           | 필요한 경우에만 로딩되어 **성능 효율적**            |
+| ⚠️ 주의사항  | N+1 문제 발생 가능, 순환 참조 위험           | `LazyInitializationException` 발생 가능 |
+| 💬 대표 예시 | 회원 조회 시 주문 목록까지 자동으로 조회          | 회원만 먼저 조회 후, 주문은 나중에 접근 시 조회        |
+
+
+### LazyInitializationException 예시
+```java
+@Transactional
+public Member getMember(Long id) {
+    return memberRepository.findById(id).get();
+}
+
+// 컨트롤러에서 member.getOrders() 호출 시 예외 발생
+```
