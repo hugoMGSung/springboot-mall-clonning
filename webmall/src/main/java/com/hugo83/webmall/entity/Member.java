@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "member")
 @ToString
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_id")
