@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
-    @SuppressWarnings("unused")
     private final MemberService memberService;
 
-    @SuppressWarnings("unused")
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/new")
@@ -53,12 +51,12 @@ public class MemberController {
     
     @GetMapping("/login") 
     public String loginMember() {
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
 
     @GetMapping("/login/error") 
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디/비밀번호를 확인해주세요");
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
 }

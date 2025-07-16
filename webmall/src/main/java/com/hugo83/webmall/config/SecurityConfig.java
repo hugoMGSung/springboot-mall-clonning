@@ -19,7 +19,8 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // 인증되지 않은 모든 페이지 요청을 허락(로그인창 안뜸)
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
+            .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+                                               .requestMatchers("/admin/**").hasRole("ADMIN")
                                                .anyRequest().authenticated())
             .csrf(csrf -> csrf.disable())  
             // 로그인URL 접근 지정. 로그인페이지 URL과 로그인성공후 페이지 URL 지정
@@ -31,6 +32,8 @@ public class SecurityConfig {
                               .logoutSuccessUrl("/")
                               .invalidateHttpSession(true))
         ;  // ;을 분리해놓으면 chain method 추가시 간편함
+
+        http.exceptionHandling(exhd -> exhd.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
             
         return http.build();
     }
