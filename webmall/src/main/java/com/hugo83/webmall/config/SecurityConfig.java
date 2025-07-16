@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,7 +26,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())  
             // 로그인URL 접근 지정. 로그인페이지 URL과 로그인성공후 페이지 URL 지정
             .formLogin(fmli -> fmli.loginPage("/members/login")
-                                 .defaultSuccessUrl("/")
+                                 .defaultSuccessUrl("/", true)
                                  .usernameParameter("email"))
             // 로그아웃URL 지정.
             .logout(lgot -> lgot.logoutUrl("/members/logout")
@@ -48,5 +49,11 @@ public class SecurityConfig {
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    // CSS 같은 정적 파일 경로는 아예 Spring Security 필터를 통과하지 않도록
+    @Bean
+    WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**");
     }
 }

@@ -1,7 +1,5 @@
 package com.hugo83.webmall.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class OrderItem {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +31,4 @@ public class OrderItem {
     private int orderPrice;
 
     private int count;
-
-    private LocalDateTime regTime;
-
-    private LocalDateTime updateTime;
 }
