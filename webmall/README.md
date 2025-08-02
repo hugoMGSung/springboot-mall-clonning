@@ -105,3 +105,21 @@ public Member getMember(Long id) {
 
 // 컨트롤러에서 member.getOrders() 호출 시 예외 발생
 ```
+
+### 상품등록
+1. bulid.gradle
+
+    ```gradle
+    // DTO ↔ Entity 간 변환(매핑) 도와주는 라이브러리
+	implementation 'org.modelmapper:modelmapper:3.2.4'
+    ```
+
+2. com.hugo83.webmall.entity.ItemImg.java 생성
+3. com.hugo83.webmall.dto.ItemImgDto.java 생성
+4. com.hugo83.webmall.dto.ItemFormDto.java
+5. com.hugo83.webmall.controller.ItemController.java
+6. resources/templates/item/itemForm.html 작성
+
+7. member 중 role 이 ADMIN으로 로그인
+8. http://localhost:9092/admin/item/new 로 접근
+ 
