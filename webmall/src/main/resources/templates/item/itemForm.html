@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout_1}">
 
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -72,9 +72,9 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">상품명</span>
             </div>
-            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요">
+            <input type="text" th:field="*{itemName}" class="form-control" placeholder="상품명을 입력해주세요">
         </div>
-        <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
+        <p th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" class="fieldError">Incorrect data</p>
 
         <div class="input-group">
             <div class="input-group-prepend">
@@ -88,9 +88,9 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">재고</span>
             </div>
-            <input type="number" th:field="*{stockNumber}" class="form-control" placeholder="상품의 재고를 입력해주세요">
+            <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="상품의 재고를 입력해주세요">
         </div>
-        <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="fieldError">Incorrect data</p>
+        <p th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}" class="fieldError">Incorrect data</p>
 
         <div class="input-group">
             <div class="input-group-prepend">
@@ -125,7 +125,7 @@
         <div th:unless="${#strings.isEmpty(itemFormDto.id)}" style="text-align: center">
             <button th:formaction="@{'/admin/item/' + ${itemFormDto.id} }" type="submit" class="btn btn-primary">수정</button>
         </div>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> -->
 
     </form>
 
